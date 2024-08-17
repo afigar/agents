@@ -28,6 +28,7 @@ async def entrypoint(ctx: JobContext):
         user_msg.content = (
             "Context:\n" + paragraph + "\n\nUser question: " + user_msg.content
         )
+        chat_ctx.append(role="user", text=user_msg.content)
         return assistant.llm.chat(chat_ctx=chat_ctx, fnc_ctx=assistant.fnc_ctx)
 
     initial_ctx = llm.ChatContext().append(
