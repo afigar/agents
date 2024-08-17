@@ -1,10 +1,14 @@
 import asyncio
 import pickle
+import sys
 
 from livekit.agents import AutoSubscribe, JobContext, WorkerOptions, cli, llm
 from livekit.agents.voice_assistant import VoiceAssistant
 from livekit.plugins import deepgram, openai, rag, silero
 
+if sys.platform == 'win32':
+	asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+    
 annoy_index = rag.annoy.AnnoyIndex.load("vdb_data")  # see build_data.py
 
 embeddings_dimension = 1536
