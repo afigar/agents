@@ -499,10 +499,13 @@ class VoiceAssistant(utils.EventEmitter[EventTypes]):
                 },
             )
 
-            if validated:
-                self._add_speech_for_playout(reply)
-            else:
-                self._pending_agent_reply = reply
+            # assuming it is always validated solves the problem of 
+            # will_synthesize_assistant_reply function not working
+            self._add_speech_for_playout(reply)
+            #if validated:
+            #    self._add_speech_for_playout(reply)
+            #else:
+            #    self._pending_agent_reply = reply
 
         # interrupt the current reply synthesis
         if self._pending_agent_reply is not None:
